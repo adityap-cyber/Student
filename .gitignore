@@ -1,0 +1,37 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# ASP.NET Secrets
+secrets.json
+
+# Publish output
+publish/
+
+# EF Core generated SQL scripts
+*.sql
+
+# OS files
+.DS_Store
+Thumbs.db
