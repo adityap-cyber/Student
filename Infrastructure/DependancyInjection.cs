@@ -1,6 +1,7 @@
-﻿using Application.Interfaces;
+﻿
 using Infrastructure.Data;
-using Infrastructure.Repository;
+using JasperFx.Events.Projections;
+using Marten;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +12,15 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IStudentRepository, StudentRepository>();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+           
+            
+            services.AddMarten(options =>
+            {
+                options.Connection(
+                    configuration.GetConnectionString("DefaultConnection"));
+                options.Projections.Add<StudentProjection>(
+                    ProjectionLifecycle.Inline); 
+            });
             return services;
         }
     }

@@ -22,16 +22,29 @@ namespace API.Controllers
         [HttpPost("AddStudent")]
         public async Task<IActionResult> addStudent(Student student)
         {
-            var result = await mediator.Send(new CreateStudentCommand(student));
+            var result = await mediator.Send(new CreateStudentCommand(student.Name,
+        student.Class,
+        student.Father_Name,
+        student.Mother_Name));
             return Ok(result);
     }
-        [HttpPut("UpdateStudent")]
-        public async Task<IActionResult> updateStudent(Guid Id, Student student)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStudent(
+    Guid id,
+    Student student)
         {
-            var result = await mediator.Send(new UpdateStudentCommand(Id, student));
+            var result = await mediator.Send(
+                new UpdateStudentCommand(
+                    id,
+                    student.Name,
+                    student.Class,
+                    student.Father_Name,
+                    student.Mother_Name
+                ));
+
             return Ok(result);
         }
-        [HttpDelete("DeleteStudent")]
+        [HttpDelete("DeleteStudent/{Id}")]
         public async Task<IActionResult> deleteStudent(Guid Id)
         {
             var result = await mediator.Send(new DeleteStudentCommand(Id));
